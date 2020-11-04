@@ -1,5 +1,5 @@
 {
-  "name": "react-simpletable",
+  "name": "@hesenger/react-simpletable",
   "version": "0.0.1",
   "description": "Simple, selectable data table component to render json data",
   "author": "hesenger",
