@@ -1,7 +1,8 @@
 {
   "name": "@hesenger/react-simpletable",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Simple, selectable data table component to render json data",
+  "keywords": ["table", "datatable", "react", "reacjs"],
   "author": "hesenger",
   "license": "MIT",
   "repository": "hesenger/react-simpletable",
