@@ -12,3 +12,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+#root .simpletable tr:nth-child(even) { background-color: #e8f5d7; }
+#root .simpletable tr.active { background-color: #fae6aa; }
+#root .simpletable tr:hover td, tr.active:hover td { background-color: #d7faaa; }
