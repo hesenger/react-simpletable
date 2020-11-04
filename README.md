@@ -1,6 +1,6 @@
 # react-simpletable
 
-Simple, selectable data table component to render json data.
+Simple and selectable data table component to render json data.
 
 [![NPM](https://img.shields.io/npm/v/react-simpletable.svg)](https://www.npmjs.com/package/react-simpletable)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
