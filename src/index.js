@@ -16,12 +16,17 @@ export default class Table extends React.Component {
         this.props.onSelect(obj, index);
     };
 
+    const header = (c, i) => {
+      if (this.props.onHeaderClick)
+        this.props.onHeaderClick(c.props.name, i);
+    };
+
     return <section className={'simpletable ' + styles.simpletable}>
       <table>
         <thead>
           <tr>
-            {React.Children.map(this.props.children, c =>
-              <th>
+            {React.Children.map(this.props.children, (c, i) =>
+              <th onClick={() => header(c, i)}>
                 {c.props.header || ' '}
               </th>
             )}
