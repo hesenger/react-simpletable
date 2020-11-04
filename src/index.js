@@ -40,6 +40,9 @@ export default class Table extends React.Component {
 }
 
 Table.Col = props => {
-  const val = (props.obj || {})[props.name] || '';
+  const val = props.format 
+    ? props.format(props.obj, props.index)
+    : (props.obj || {})[props.name] || '';
+    
   return <td>{val}</td>;
 }
