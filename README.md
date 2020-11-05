@@ -13,14 +13,14 @@ The default style (gray based) not set `font-face` or `font-size`, this
 will be inherited from your documents defaults. To set colors or other styles 
 use .simpletable class like:
 
-Remember table is not rendered directly to page, this is inside a `section` tag, with
-css class `simpletable` name.
-
 ```
 #root .simpletable tr:nth-child(even) { background-color: #e8f5d7; }
 #root .simpletable tr.active { background-color: #fae6aa; }
 #root .simpletable tr:hover td, tr.active:hover td { background-color: #d7faaa; }
 ```
+
+Remember that table is not rendered directly to page, this is inside a `section` tag, 
+with css class `simpletable` name.
 
 ## Coming soon
 
