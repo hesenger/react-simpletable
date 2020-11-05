@@ -1,9 +1,17 @@
 # react-simpletable
 
-Simple and selectable data table component to render json data.
+> Simple table component to render json data from local or remote
 
 [![NPM](https://img.shields.io/npm/v/react-simpletable.svg)](https://www.npmjs.com/package/react-simpletable)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+All size of projects needed powerfull and customizable components, but data
+driven software usually have many CRUDS to simple manage data in single tables, 
+in this case, productivity comes to be a good partner, and a simple declarative 
+component to list local or remote data is a must.
+
+In this cases `react-simpletable` is a fast option to show users data and let them 
+select wich they want to change/delete.
 
 [See detailed example at /example](example).
 
@@ -22,11 +30,12 @@ use .simpletable class like:
 Remember that table is not rendered directly to page, this is inside a `section` tag, 
 with css class `simpletable` name.
 
-## Coming soon
 
-In my projects I use tables based on remote fetchs like example, but this is made 
-easy simple specifing `url` property. I'm porting this codes to this project. Important
-too that the data is paginated, and table render page controls (first, last, next ans previous buttons).
+## Remote tables with simple `url` property
+
+Version 0.2 featured remote data based tables with simple `url` property see
+[example](example).
+
 
 ## Install
 
