@@ -8,25 +8,29 @@ export default class Table extends React.Component {
     this.loadRemoteData();
   }
 
-  loadRemoteData() {
+  loadRemoteData(newPage) {
     if (!this.props.url)
       return;
-    
-    fetch(this.formatUrl(this.props.url, this.state))
-      .then(resp => this.parseRemote(resp));
+
+    const page = newPage || this.state.page;
+    const state = { ...this.state, page };
+    this.setState(state);
+
+    fetch(this.formatUrl(this.props.url, state))
+      .then(resp => this.parseRemote(resp, state));
   }
 
   formatUrl(url, state) {
     const res = new URL(url);
-    res.searchParams.set('page', state.page);
+    res.searchParams.set('page', state.page - 1);
     res.searchParams.set('size', state.size);
 
     return res;
   }
 
-  parseRemote(resp) {
+  parseRemote(resp, state) {
     resp.json()
-      .then(t => this.setState({data: t.data}));
+      .then(t => this.setState({ data: t.data, total: t.totalPages, page: state.page }));
   }
 
   getData() {
@@ -69,6 +73,23 @@ export default class Table extends React.Component {
             </tr>
           )}
         </tbody>
+        {this.props.url && <tfoot>
+          <tr>
+            <th colSpan={this.props.children?.length || 1}>
+              <button type="button" onClick={() => this.loadRemoteData(1)}>&lt;&lt;</button>
+              <button type="button" onClick={() => this.loadRemoteData(Math.max(1, this.state.page - 1))}>&lt;</button>
+              <input type="text" value={this.state.page}
+                onChange={e => this.setState({ page: e.target.value })}
+                onBlur={() => this.loadRemoteData()}
+                onKeyDown={e => e.key === 'Enter' && this.loadRemoteData(e.target.value)}
+              />
+                /
+              <input type="text" value={this.state.total || 0} readOnly />
+              <button type="button" onClick={() => this.loadRemoteData(Math.min(this.state.total, this.state.page + 1))}>&gt;</button>
+              <button type="button" onClick={() => this.loadRemoteData(this.state.total)}>&gt;&gt;</button>
+            </th>
+          </tr>
+        </tfoot>}
       </table>
     </section>;
   }

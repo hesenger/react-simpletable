@@ -35,8 +35,8 @@ const LocalTable = () => {
       <Table.Col header="Last flight"
         format={obj => (obj.airline[0] || obj.airline).name} />
     </Table>
-    <p>
-      Current selection: {JSON.stringify(current)}
+    <p style={{ border: '1px solid #c8e1ff', backgroundColor: '#f1f8ff' }}>
+      <span style={{fontWeight: 'bold'}}>Current selection:</span> {JSON.stringify(current)}
     </p>
   </>;
 }
@@ -45,6 +45,7 @@ const App = () =>
   <main style={{ margin: '0 auto', width: 800 }}>
     <h1>react-simpletable examples</h1>
     <p>This is a list of simple examples of using react-simpletable.</p>
+    <p>Projected hosted at <a href="https://github.com/hesenger/react-simpletable" target="_blank" rel="noreferrer">GitHub</a>.</p>
 
     <LocalTable />
 
