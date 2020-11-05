@@ -42,7 +42,7 @@ const LocalTable = () => {
 }
 
 const App = () =>
-  <main style={{ margin: '0 auto', width: 800 }}>
+  <main style={{ margin: '0 auto', maxWidth: 800 }}>
     <h1>react-simpletable examples</h1>
     <p>This is a list of simple examples of using react-simpletable.</p>
     <p>Projected hosted at <a href="https://github.com/hesenger/react-simpletable" target="_blank" rel="noreferrer">GitHub</a>.</p>
