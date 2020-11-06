@@ -5,6 +5,8 @@
 [![NPM](https://img.shields.io/npm/v/react-simpletable.svg)](https://www.npmjs.com/package/react-simpletable)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+[See live examples here](https://hesenger.com/react-simpletable).
+
 All size of projects needed powerfull and customizable components, but data
 driven software usually have many CRUDS to simple manage data in single tables, 
 in this case, productivity comes to be a good partner, and a simple declarative 
@@ -40,7 +42,7 @@ Version 0.2 featured remote data based tables with simple `url` property see
 ## Install
 
 ```bash
-npm install --save react-simpletable
+npm i @hesenger/react-simpletable
 ```
 
 ## Usage
