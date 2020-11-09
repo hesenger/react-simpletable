@@ -1,5 +1,6 @@
 import React from 'react'
-import styles from './styles.module.css'
+import material from './material.css'
+import flat from './flat.css'
 
 export default class Table extends React.Component {
   state = { selected: null, selectedIndex: -1, page: 1, size: 25 };
@@ -55,7 +56,8 @@ export default class Table extends React.Component {
         this.props.onHeaderClick(c.props.name, i);
     };
 
-    return <section className={'simpletable ' + styles.simpletable}>
+    const theme = this.props.theme || material;
+    return <div className={theme.simpletable}>
       <table>
         <thead>
           <tr>
@@ -68,7 +70,7 @@ export default class Table extends React.Component {
         </thead>
         <tbody>
           {data.map((obj, index) =>
-            <tr key={index} onClick={() => onSelect(obj, index)} className={this.state.selectedIndex === index ? styles.active : null}>
+            <tr key={index} onClick={() => onSelect(obj, index)} className={this.state.selectedIndex === index ? theme.active : null}>
               {React.Children.map(this.props.children, c => React.cloneElement(c, { obj, index }))}
             </tr>
           )}
@@ -91,7 +93,7 @@ export default class Table extends React.Component {
           </tr>
         </tfoot>}
       </table>
-    </section>;
+    </div>;
   }
 }
 
@@ -112,3 +114,6 @@ Table.Col = props => {
 
   return <td>{val}</td>;
 }
+
+Table.FlatTheme = flat;
+Table.MaterialTheme = material;

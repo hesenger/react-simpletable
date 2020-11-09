@@ -1,0 +1,24 @@
+/* based on https://material.io/components/data-tables  */
+
+.simpletable {
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+}
+
+.simpletable table { flex-grow: 1; border-collapse: collapse; border-spacing: 0; font-size: 10pt; line-height: 3em; }
+.simpletable table th, .simpletable table td { 
+  padding: 0 16px; border-bottom: 1px solid rgba(0,0,0,.12); 
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 0;
+}
+.simpletable table th { font-weight: bold; }
+
+.simpletable table tr:hover { background-color: rgba(0,0,0,.04); }
+.simpletable table tr.active td { background-color: rgba(0,0,0,.02); }
+
+.simpletable table tfoot th { padding: 10px; }
+.simpletable table tfoot input, .simpletable table tfoot button { 
+  line-height: 2.5em; padding: 0 12px; border: 1px solid rgba(0,0,0,.12); border-radius: 4px;
+  text-align: center; margin: 0 10px; width: 46px;
+} 

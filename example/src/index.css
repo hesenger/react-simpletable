@@ -13,7 +13,9 @@ code {
     monospace;
 }
 
-
-#root .simpletable tr:nth-child(even) { background-color: #e8f5d7; }
-#root .simpletable tr.active { background-color: #fae6aa; }
-#root .simpletable tr:hover td, tr.active:hover td { background-color: #d7faaa; }
+pre {
+  background-color: #333;
+  color: #fff;
+  font-size: 10pt;
+  padding: 0 10px;
+}
