@@ -2,7 +2,7 @@
 
 > Simple table component to render json data from local or remote
 
-[![NPM](https://img.shields.io/npm/v/react-simpletable.svg)](https://www.npmjs.com/package/react-simpletable)
+[![NPM](https://img.shields.io/npm/v/@hesenger/react-simpletable.svg)](https://www.npmjs.com/package/@hesenger/react-simpletable)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 SimpleTable comes with support to:
@@ -12,7 +12,7 @@ SimpleTable comes with support to:
 
 [See live examples here](https://hesenger.com/react-simpletable).
 
-All size of projects needed powerfull and customizable components, but data
+All size of projects need powerfull and customizable components, but data
 driven software usually have many CRUDS to simple manage data in single tables, 
 in this case, productivity comes to be a good partner, and a simple declarative 
 component to list local or remote data is a must.
