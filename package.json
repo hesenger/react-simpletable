@@ -1,6 +1,6 @@
 {
   "name": "@hesenger/react-simpletable",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Simple table component to render json data from local or remote",
   "keywords": ["table", "datatable", "react", "reacjs"],
   "author": "hesenger",
