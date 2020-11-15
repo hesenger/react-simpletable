@@ -10,8 +10,9 @@
   border-bottom: 1px solid var(--border);
   width: 100%; border-collapse: collapse; 
   border-spacing: 0; font-size: 10pt; line-height: 2em; 
+  cursor: default;
 }
-.simpletable table td { border-right: 1px solid var(--border); cursor: default; box-sizing: border-box; }
+.simpletable table td { border-right: 1px solid var(--border); box-sizing: border-box; }
 .simpletable table th { 
     font-weight: normal; text-align: center; background-color: var(--table-head); 
     border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); 

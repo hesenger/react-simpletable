@@ -1,119 +1,98 @@
 import React from 'react'
-import material from './material.css'
-import flat from './flat.css'
+import material from './css/material.css'
+import flat from './css/flat.css'
 
-export default class Table extends React.Component {
-  state = { selected: null, selectedIndex: -1, page: 1, size: 25 };
-
-  componentDidMount() {
-    this.loadRemoteData();
-  }
-
-  loadRemoteData(newPage) {
-    if (!this.props.url)
-      return;
-
-    const page = newPage || this.state.page;
-    const state = { ...this.state, page };
-    this.setState(state);
-
-    fetch(this.formatUrl(this.props.url, state))
-      .then(resp => this.parseRemote(resp, state));
-  }
-
-  formatUrl(url, state) {
-    const res = new URL(url);
-    res.searchParams.set('page', state.page - 1);
-    res.searchParams.set('size', state.size);
-
-    return res;
-  }
-
-  parseRemote(resp, state) {
-    resp.json()
-      .then(t => this.setState({ data: t.data, total: t.totalPages, page: state.page }));
-  }
-
-  getData() {
-    return this.props.data
-      ? this.props.data
-      : this.state.data
-  }
-
-  render() {
-    const data = this.getData() || [];
-    if (!Array.isArray(data))
-      throw 'Property DATA is not an array';
-
-    const onSelect = (obj, i) => {
-      this.setState({ selected: obj, selectedIndex: i });
-      if (this.props.onSelect)
-        this.props.onSelect(obj, i);
-    };
-
-    const onHeaderClick = (c, i) => {
-      if (this.props.onHeaderClick)
-        this.props.onHeaderClick(c.props.name, i);
-    };
-
-    const theme = this.props.theme || material;
-    return <div className={theme.simpletable}>
-      <table>
-        <thead>
-          <tr>
-            {React.Children.map(this.props.children, (c, i) =>
-              <th onClick={() => onHeaderClick(c, i)}>
-                {c.props.header || ' '}
-              </th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((obj, index) =>
-            <tr key={index} onClick={() => onSelect(obj, index)} className={this.state.selectedIndex === index ? theme.active : null}>
-              {React.Children.map(this.props.children, c => React.cloneElement(c, { obj, index }))}
-            </tr>
-          )}
-        </tbody>
-        {this.props.url && <tfoot>
-          <tr>
-            <th colSpan={this.props.children?.length || 1}>
-              <button type="button" onClick={() => this.loadRemoteData(1)}>&lt;&lt;</button>
-              <button type="button" onClick={() => this.loadRemoteData(Math.max(1, this.state.page - 1))}>&lt;</button>
-              <input type="text" value={this.state.page}
-                onChange={e => this.setState({ page: e.target.value })}
-                onBlur={() => this.loadRemoteData()}
-                onKeyDown={e => e.key === 'Enter' && this.loadRemoteData(e.target.value)}
-              />
-                /
-              <input type="text" value={this.state.total || 0} readOnly />
-              <button type="button" onClick={() => this.loadRemoteData(Math.min(this.state.total, this.state.page + 1))}>&gt;</button>
-              <button type="button" onClick={() => this.loadRemoteData(this.state.total)}>&gt;&gt;</button>
-            </th>
-          </tr>
-        </tfoot>}
-      </table>
-    </div>;
-  }
+function TableHeaderColumn(props) {
+  const table = React.useContext(Table.Context);
+  return <th onClick={() => table.onHeaderClick(props.name)}>
+    {props.header || ' '}
+  </th>
 }
 
-Table.Col = props => {
-  const getFromFormat = obj => {
-    try {
-      return props.format(props.obj, props.index);
-    } catch (ex) {
-      console.warn('Error format column ' + props.name);
-      console.warn(ex);
-      return '';
+function TableHeader() {
+  const table = React.useContext(Table.Context);
+  return <thead>
+    <tr>
+      {React.Children.map(table.props.children, c => <TableHeaderColumn {...c.props} />)}
+    </tr>
+  </thead>
+}
+
+function TableBodyColumn(props) {
+  return <td>
+    {(props.rowData || {})[props.name] || ''}
+  </td>
+}
+
+function TableBodyRow(props) {
+  const table = React.useContext(Table.Context);
+  return <tr className={props.selected && table.props.theme.active || ""} onClick={() => table.onRowClick({ rowData: props.rowData, index: props.index })}>
+    {React.Children.map(table.props.children, c => React.cloneElement(c, { ...c.props, rowData: props.rowData }))}
+  </tr>
+}
+
+function TableBody() {
+  const table = React.useContext(Table.Context);
+
+  return <tbody>
+    {table.state.data.map((rd, i) =>
+      <TableBodyRow key={i} rowData={rd} index={i} selected={i === table.state.selectedIndex} />
+    )}
+  </tbody>
+}
+
+function TableFooter() {
+  const table = React.useContext(Table.Context);
+  return <tfoot>
+    <tr>
+      <td colSpan={table.props.children.count}></td>
+    </tr>
+  </tfoot>
+}
+
+export default class Table extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      data: props.data
     }
   }
 
-  const val = props.format
-    ? getFromFormat()
-    : (props.obj || {})[props.name] || '';
+  onHeaderClick({ name }) {
+    this.setState(state => {
+      return { orderBy: state.orderBy === name ? name + ' desc' : name }
+    })
+  }
 
-  return <td>{val}</td>;
+  onRowClick({ rowData, index }) {
+    this.setState({ selectedIndex: index, selected: rowData });
+  }
+
+  render() {
+    const data = this.state.data;
+
+    return <div className={this.props.theme.simpletable}>
+      <Table.Context.Provider value={this}>
+        <table>
+          <TableHeader />
+
+          <TableBody />
+
+          <TableFooter />
+        </table>
+      </Table.Context.Provider>
+    </div>
+  }
 }
 
+Table.defaultProps = {
+  theme: material,
+  data: []
+}
+
+Table.Context = React.createContext();
+
+Table.Col = TableBodyColumn
 Table.FlatTheme = flat;
 Table.MaterialTheme = material;

@@ -5,14 +5,16 @@
   border-radius: 4px;
 }
 
-.simpletable table { width: 100%; border-collapse: collapse; border-spacing: 0; font-size: 10pt; line-height: 3em; }
+.simpletable table { width: 100%; border-collapse: collapse; border-spacing: 0; font-size: 10pt; line-height: 3em; cursor: default; }
 .simpletable table th, .simpletable table td { 
   padding: 0 16px; border-bottom: 1px solid rgba(0,0,0,.12); 
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 0;
 }
 .simpletable table th { font-weight: bold; }
 
-.simpletable table tr:hover { background-color: rgba(0,0,0,.04); }
+.simpletable table tr th:hover { background-color: rgba(0,0,0,.04); }
+
+.simpletable table tr:hover td { background-color: rgba(0,0,0,.04); }
 .simpletable table tr.active td { background-color: rgba(0,0,0,.02); }
 
 .simpletable table tfoot th { padding: 10px; }
