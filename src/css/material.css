@@ -22,3 +22,6 @@
   line-height: 2.5em; padding: 0 12px; border: 1px solid rgba(0,0,0,.12); border-radius: 4px;
   text-align: center; margin: 0 10px; width: 46px;
 } 
+
+.simpletable th .order { border-top: 2px solid #000; border-right: 2px solid #000; display: inline-block; width: 4px; height: 4px; transform: rotate(-45deg); }
+.simpletable th .order.desc { transform: rotate(135deg); }

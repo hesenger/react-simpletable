@@ -2,10 +2,26 @@ import React from 'react'
 import material from './css/material.css'
 import flat from './css/flat.css'
 
+function TableHeaderOrderIcon(props) {
+  const table = React.useContext(Table.Context);
+  const order = table.state.order || '';
+  const theme = table.props.theme;
+
+  const arr = [props.name, props.name + ' desc'];
+
+  switch(arr.indexOf(order)) {
+    case 0: return <span className={theme.order}></span>
+    case 1: return <span className={theme.order + ' ' + theme.desc}></span>
+  }
+  
+  return null
+}
+
 function TableHeaderColumn(props) {
   const table = React.useContext(Table.Context);
-  return <th onClick={() => table.onHeaderClick(props.name)}>
-    {props.header || ' '}
+  return <th onClick={() => table.onHeaderClick({ name: props.name })}>
+    {props.header || ' '} 
+    <TableHeaderOrderIcon name={props.name} />
   </th>
 }
 
@@ -55,23 +71,29 @@ export default class Table extends React.Component {
     super(props)
 
     this.state = {
-      data: props.data
+      data: props.data,
+      order: ''
     }
   }
 
   onHeaderClick({ name }) {
     this.setState(state => {
-      return { orderBy: state.orderBy === name ? name + ' desc' : name }
+      const data = state.data.sort((a, b) => a[name] > b[name] ? 1 : -1)
+
+      return { order: state.order === name ? name + ' desc' : name, data }
     })
+  }
+  
+  getOrderClassName(name) {
+    return this.state.order.indexOf('')
   }
 
   onRowClick({ rowData, index }) {
     this.setState({ selectedIndex: index, selected: rowData });
+    this.props.onRowClick(rowData, index);
   }
 
   render() {
-    const data = this.state.data;
-
     return <div className={this.props.theme.simpletable}>
       <Table.Context.Provider value={this}>
         <table>
@@ -88,7 +110,8 @@ export default class Table extends React.Component {
 
 Table.defaultProps = {
   theme: material,
-  data: []
+  data: [],
+  onRowClick: function() {}
 }
 
 Table.Context = React.createContext();
